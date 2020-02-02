@@ -1,7 +1,7 @@
 import {firestore} from '../config_firebase'
 
 const getPosts = async () => {
-    const posts = await firestore.collection('posts').get()
+    const posts = await (await firestore.collection('posts').get()).docs
     return posts
 }
 

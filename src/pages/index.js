@@ -1,19 +1,10 @@
-import { firestore } from "../config_firebase";
-import { useEffect } from "react";
-import { getPosts } from "../firestoreapi/functios";
+import Posts from "./posts";
 
 const App = () => {
-  useEffect(() => {
-    getPosts()
-      .then(posts =>
-        posts.empty ? console.log("is empty") : console.log(posts)
-      )
-      .catch(err => console.log(err));
-  }, []);
   return (
-    <div>
-      <h1>Hello react with firebase</h1>
-    </div>
+    <React.Fragment>
+      <Posts />
+    </React.Fragment>
   );
 };
 export default App;
