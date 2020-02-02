@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { getPosts } from "../firestoreapi/functios";
 import Post from './post'
+import { useLoading } from "../hooks";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
+  const loading = useLoading()
   useEffect(() => {
     getPosts().then(posts => setPosts(posts));
   }, []);
@@ -11,7 +13,17 @@ const Posts = () => {
   if (posts.length < 1) {
     return (
       <div>
-        <h1>Loading....</h1>
+        <h1>{loading}</h1>
+        <style jsx>
+          {
+            `
+            h1 {
+              width: 50%;
+              text-align: center;
+            }
+            `
+          }
+        </style>
       </div>
     );
   }
