@@ -3,19 +3,43 @@ const Post = ({post}) => {
   return (
     <React.Fragment>
       <div className='post'>
-        <h1>{title}</h1>
-        <p>{content}</p>
-        <span>{user.displayName}</span>
+        <div className='post-content'>
+          <h1>{title}</h1>
+          <p>{content}</p>
+        </div>
+        <div className='bottom-bar'>
+          <span className='user-name'>Name: {user.displayName}</span>
+          <button className='star-btn'>Star</button>
+          <button className='remove-btn'>Remove</button>
+        </div>
       </div>
       <style jsx>
         {
           `
           .post {
+            border: 1px solid green;
             width: 50%;
-            margin: auto;
+            margin: 10px auto;
           }
-          p {
-            font-size: 2em;
+          .post-content {
+            padding: 0px 10px;
+          }
+          .user-name {
+            float: left;
+          }
+          .bottom-bar {
+            padding: 10px;
+            background: lightgreen;
+            text-align: right;
+          }
+          .remove-btn {
+            margin-left: 5px;
+            padding: 7px;
+            background: orange;
+          }
+          .star-btn {
+            background: #829FD9;
+            padding: 7px;
           }
           `
         }

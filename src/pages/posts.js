@@ -1,14 +1,10 @@
-import { useState, useEffect } from "react";
-import { getPosts } from "../firestoreapi/functios";
 import Post from './post'
-import { useLoading } from "../hooks";
+import { useLoading, useGetPosts } from "../hooks";
+import AddPost from './addpost';
 
 const Posts = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useGetPosts()
   const loading = useLoading()
-  useEffect(() => {
-    getPosts().then(posts => setPosts(posts));
-  }, []);
 
   if (posts.length < 1) {
     return (
@@ -29,6 +25,7 @@ const Posts = () => {
   }
   return (
   <React.Fragment>
+      <AddPost handlePosts={setPosts}/>
       {posts.map((doc, index) => <Post post={doc} key={index}/>)}
   </React.Fragment>)
 };
