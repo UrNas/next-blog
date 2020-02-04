@@ -1,5 +1,11 @@
-const Post = ({post}) => {
+import { firestore } from "../config_firebase";
+
+const Post = ({post, handlePosts}) => {
   const {title, content, user} = post.data()
+  const handleRemove = (id) => {
+    firestore.collection('posts').doc(id).delete()
+    .then(handlePosts(posts => posts.filter(doc => doc.id !== id)))
+  }
   return (
     <React.Fragment>
       <div className='post'>
@@ -10,7 +16,7 @@ const Post = ({post}) => {
         <div className='bottom-bar'>
           <span className='user-name'>Name: {user.displayName}</span>
           <button className='star-btn'>Star</button>
-          <button className='remove-btn'>Remove</button>
+          <button className='remove-btn' onClick={() => handleRemove(post.id)}>Remove</button>
         </div>
       </div>
       <style jsx>

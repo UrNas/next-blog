@@ -9,13 +9,13 @@ const useLoading = () => {
       setLoading(l => (l === "Loading..." ? "Loading" : l + "."));
     }, 200);
     return () => clearInterval(id);
-  });
+  }, []);
   return loading;
 };
 
 
 const useGetPosts = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(['loading']);
   useEffect(() => {
     let isCurrent = true;
     getPosts().then(posts => {

@@ -18,7 +18,7 @@ const AddPost = ({ handlePosts }) => {
         displayName: "ali",
         uid: "123"
       }
-    }).then(doc => handlePosts(posts => [doc, ...posts]) || console.log(doc));
+    }).then(doc => handlePosts(posts => [doc, ...posts]));
   };
   return (
     <React.Fragment>

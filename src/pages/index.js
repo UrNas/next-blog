@@ -1,7 +1,6 @@
-import Posts from "./posts";
+import Posts from "../components/posts";
 
 const App = () => {
-
   return (
     <React.Fragment>
       <Posts />

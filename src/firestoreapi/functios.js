@@ -10,6 +10,7 @@ const addPostBlog = async (post) => {
     const doc = await refDoc.get()
     return doc
 }
+
 export {
     getPosts,
     addPostBlog
