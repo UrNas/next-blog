@@ -1,10 +1,16 @@
 import { firestore } from "../config_firebase";
+import { updatePost } from "../firestoreapi/functios";
+
+
 
 const Post = ({post, handlePosts}) => {
-  const {title, content, user} = post.data()
+  const {title, content, user, star} = post.data()
   const handleRemove = (id) => {
     firestore.collection('posts').doc(id).delete()
     .then(handlePosts(posts => posts.filter(doc => doc.id !== id)))
+  }
+  const handleStar = (id) => {
+    star !== undefined ? updatePost(id, star + 1) : updatePost(id, 1)
   }
   return (
     <React.Fragment>
@@ -14,8 +20,11 @@ const Post = ({post, handlePosts}) => {
           <p>{content}</p>
         </div>
         <div className='bottom-bar'>
-          <span className='user-name'>Name: {user.displayName}</span>
-          <button className='star-btn'>Star</button>
+          <div className='user-info'>
+            <span>Name: {user.displayName}</span>
+            <span className='star-icn'>⭐️ {star ? star : ''}</span>
+          </div>
+          <button className='star-btn' onClick={() => handleStar(post.id)}>Star</button>
           <button className='remove-btn' onClick={() => handleRemove(post.id)}>Remove</button>
         </div>
       </div>
@@ -30,8 +39,11 @@ const Post = ({post, handlePosts}) => {
           .post-content {
             padding: 0px 10px;
           }
-          .user-name {
+          .user-info {
             float: left;
+          }
+          .star-icn {
+            margin-left: 5px;
           }
           .bottom-bar {
             padding: 10px;

@@ -10,8 +10,11 @@ const addPostBlog = async (post) => {
     const doc = await refDoc.get()
     return doc
 }
-
+const updatePost = (id, starCount) => {
+    firestore.collection('posts').doc(id).update({star: starCount})
+}
 export {
     getPosts,
-    addPostBlog
+    addPostBlog,
+    updatePost
 }
