@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPosts } from "./firestoreapi/functios";
+import { firestore } from "./config_firebase";
 
 
 const useLoading = () => {
@@ -17,12 +17,11 @@ const useLoading = () => {
 const useGetPosts = () => {
   const [posts, setPosts] = useState(['loading']);
   useEffect(() => {
-    let isCurrent = true;
-    getPosts().then(posts => {
-      if (isCurrent) setPosts(posts);
-    });
-    return () => (isCurrent = false);
+    const unsubscribe = firestore.collection('posts').onSnapshot(snapshot => {
+      setPosts(snapshot.docs)
+    })
+    return unsubscribe
   }, []);
-  return [posts, setPosts];
+  return posts;
 };
 export { useLoading, useGetPosts };

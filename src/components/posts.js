@@ -4,14 +4,14 @@ import Loading from './loading';
 import { useGetPosts } from "../hooks";
 
 const Posts = () => {
-  const [posts, setPosts] = useGetPosts()
+  const posts = useGetPosts()
   if (posts[0] === 'loading') {
     return <Loading />
   }
   return (
     <div>
-      <AddPost handlePosts={setPosts}/>
-      {posts.map((doc, index) => <Post post={doc} key={index} handlePosts={setPosts}/>)}
+      <AddPost />
+      {posts.map((doc, index) => <Post post={doc} key={index} />)}
     </div>)
 
 };

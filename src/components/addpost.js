@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { addPostBlog } from "../firestoreapi/functios";
 
-const AddPost = ({ handlePosts }) => {
+const AddPost = () => {
   const refTitle = useRef();
   const refBodh = useRef();
   const handleCreatePost = e => {
@@ -18,7 +18,7 @@ const AddPost = ({ handlePosts }) => {
         displayName: "ali",
         uid: "123"
       }
-    }).then(doc => handlePosts(posts => [doc, ...posts]));
+    })
   };
   return (
     <React.Fragment>

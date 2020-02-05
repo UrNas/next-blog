@@ -7,14 +7,22 @@ const getPosts = async () => {
 
 const addPostBlog = async (post) => {
     const refDoc = await firestore.collection('posts').add(post)
-    const doc = await refDoc.get()
-    return doc
 }
 const updatePost = (id, starCount) => {
     firestore.collection('posts').doc(id).update({star: starCount})
 }
+const removePost = (id) => {
+    firestore.collection('posts').doc(id).delete()
+}
+
+const starPost = (id, star) => {
+    star !== undefined ? updatePost(id, star + 1) : updatePost(id, 1)
+}
+
 export {
     getPosts,
     addPostBlog,
-    updatePost
+    updatePost,
+    removePost,
+    starPost
 }
