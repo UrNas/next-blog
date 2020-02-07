@@ -1,4 +1,5 @@
-import {firestore} from '../config_firebase'
+import firebase, {firestore} from '../config_firebase'
+import 'firebase/auth'
 
 const getPosts = async () => {
     const posts = await (await firestore.collection('posts').get()).docs
@@ -18,11 +19,33 @@ const removePost = (id) => {
 const starPost = (id, star) => {
     star !== undefined ? updatePost(id, star + 1) : updatePost(id, 1)
 }
+const provider = new firebase.auth.GoogleAuthProvider();
+
+const signInWithGoogle = async () => {
+    const result = await firebase.auth().signInWithPopup(provider)
+    console.log(result)
+}
+const signInWithEmailAndPassword = async (email, password) => {
+    const resutl = await firebase.auth().signInWithEmailAndPassword(email, password)
+    .catch(err => err.message)
+    return resutl
+}
+
+const createNewUserWithEmailAndPass = async (email, password) => {
+    const result = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    .catch(err => console.log(err))
+    console.log(result)
+    return result
+}
+
 
 export {
     getPosts,
     addPostBlog,
     updatePost,
     removePost,
-    starPost
+    starPost,
+    signInWithGoogle,
+    signInWithEmailAndPassword,
+    createNewUserWithEmailAndPass
 }

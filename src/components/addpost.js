@@ -26,7 +26,7 @@ const AddPost = () => {
         <form>
           <input type="text" placeholder="Title" ref={refTitle} required />
           <input type="text" placeholder="Body" ref={refBodh} required />
-          <button onClick={handleCreatePost}>Create Post</button>
+          <button onClick={handleCreatePost} >Create Post</button>
         </form>
       </div>
       <style jsx>
