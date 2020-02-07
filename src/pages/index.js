@@ -1,11 +1,11 @@
 import Posts from "../components/posts";
-import SignInAndSignUp from "../components/signandsignupform";
+import Authentication from "../components/authentication";
 
 
 const App = () => {
   return (
     <React.Fragment>
-      <SignInAndSignUp />
+      <Authentication />
       <Posts />
     </React.Fragment>
   );

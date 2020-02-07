@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { firestore } from "./config_firebase";
+import firebase, { firestore } from "./config_firebase";
+
 
 
 const useLoading = () => {
@@ -24,4 +25,15 @@ const useGetPosts = () => {
   }, []);
   return posts;
 };
-export { useLoading, useGetPosts };
+
+const useAuth = () => {
+  const [user, setUser] = useState(null)
+  useEffect(()=> {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      setUser(user)
+    })
+    return unsubscribe
+  }, [])
+  return user
+}
+export { useLoading, useGetPosts, useAuth };

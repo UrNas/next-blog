@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import { addPostBlog } from "../firestoreapi/functios";
+import { useAuth } from "../hooks";
 
 const AddPost = () => {
+  const user = useAuth()
   const refTitle = useRef();
   const refBodh = useRef();
   const handleCreatePost = e => {
@@ -15,8 +17,10 @@ const AddPost = () => {
       title,
       content,
       user: {
-        displayName: "ali",
-        uid: "123"
+        displayName: user.displayName,
+        uid: user.uid,
+        email: user.email,
+        photoURL: user.photoURL
       }
     })
   };
@@ -26,7 +30,7 @@ const AddPost = () => {
         <form>
           <input type="text" placeholder="Title" ref={refTitle} required />
           <input type="text" placeholder="Body" ref={refBodh} required />
-          <button onClick={handleCreatePost} >Create Post</button>
+          <button onClick={handleCreatePost} disabled={user ? false: true}>Create Post</button>
         </form>
       </div>
       <style jsx>

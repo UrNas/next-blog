@@ -6,11 +6,9 @@ const SignIn = () => {
   const refPass = useRef(null)
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('submit')
     const email = refEmail.current.value
     const pass = refPass.current.value
     signInWithEmailAndPassword(email, pass)
-    .then(result => console.log(result))
   }
   return (
     <div>

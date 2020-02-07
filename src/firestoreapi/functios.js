@@ -23,7 +23,6 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 const signInWithGoogle = async () => {
     const result = await firebase.auth().signInWithPopup(provider)
-    console.log(result)
 }
 const signInWithEmailAndPassword = async (email, password) => {
     const resutl = await firebase.auth().signInWithEmailAndPassword(email, password)
@@ -34,8 +33,10 @@ const signInWithEmailAndPassword = async (email, password) => {
 const createNewUserWithEmailAndPass = async (email, password) => {
     const result = await firebase.auth().createUserWithEmailAndPassword(email, password)
     .catch(err => console.log(err))
-    console.log(result)
     return result
+}
+const signOutUser = async () => {
+    await firebase.auth().signOut()
 }
 
 
@@ -47,5 +48,6 @@ export {
     starPost,
     signInWithGoogle,
     signInWithEmailAndPassword,
-    createNewUserWithEmailAndPass
+    createNewUserWithEmailAndPass,
+    signOutUser
 }
