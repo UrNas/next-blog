@@ -21,13 +21,14 @@ const CurrentUser = () => {
                     }
                     .user-img {
                         dispaly: block;
+                        width: 20%;
                         float: left;
                         clear: both;
                         // padding-right: 10px;
                     }
                     .user-info {
                         display: block;
-                        width: 80%;
+                        width: 77%;
                         float: right;
                         padding-bottom: 20px;w
                     }
@@ -46,6 +47,9 @@ const CurrentUser = () => {
                     .date:before {
                         color: red;
                         content: 'Joined: '
+                    }
+                    img {
+                        width: 100%;
                     }
                     `
                 }
