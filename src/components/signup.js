@@ -1,20 +1,22 @@
 import {
   signInWithGoogle,
-  createNewUserWithEmailAndPass
+  createNewUserWithEmailAndPass,
 } from "../firestoreapi/functios";
 import { useRef } from "react";
 
 const SignUp = () => {
   const refEmail = useRef(null);
   const refPass = useRef(null);
+  const refDisName = useRef(null)
 
   const handleSubmit = e => {
     e.preventDefault();
     const email = refEmail.current.value;
     const pass = refPass.current.value;
-    createNewUserWithEmailAndPass(email, pass).catch(err =>
-      console.log(err)
-    );
+    const disname = refDisName.current.value;
+    createNewUserWithEmailAndPass(email, pass, disname)
+    .then(userProfile => console.log(userProfile))
+    .catch(err => console.error(err)) 
   };
   const handleGoogleSignIn = e => {
     e.preventDefault()
@@ -23,6 +25,7 @@ const SignUp = () => {
   return (
     <React.Fragment>
       <form className="sign-up" onSubmit={handleSubmit}>
+        <input type='text' placeholder='Display Name' required ref={refDisName}/>
         <input type="email" placeholder="Email" ref={refEmail} required/>
         <input type="password" placeholder="password" ref={refPass}  required/>
         <input type="submit" value="Sign Up" />

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import firebase, { firestore } from "./config_firebase";
+import { craeteUserProfile } from "./firestoreapi/functios";
 
 
-
+// hook to handle loading page 
 const useLoading = () => {
   const [loading, setLoading] = useState("Loading");
   useEffect(() => {
@@ -14,7 +15,7 @@ const useLoading = () => {
   return loading;
 };
 
-
+// hook to handle evnet in database 'posts' and triger if there is any update or add.
 const useGetPosts = () => {
   const [posts, setPosts] = useState(['loading']);
   useEffect(() => {
@@ -26,13 +27,23 @@ const useGetPosts = () => {
   return posts;
 };
 
+// hook to handle application auth enent and triger in sign in or sign out.
+// and create new user profile if is not exists else bypass
 const useAuth = () => {
   const [user, setUser] = useState(null)
   useEffect(()=> {
+    let isCurrent = true
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      setUser(user)
+      if (isCurrent) {
+          craeteUserProfile(user)
+          .then(u => setUser(u))
+          .catch(err => console.error("User Auth: ", err))
+      }
     })
-    return unsubscribe
+    return () => {
+      unsubscribe()
+      isCurrent = false
+    }
   }, [])
   return user
 }

@@ -18,7 +18,8 @@ const Post = ({ post }) => {
           <button className="star-btn" onClick={() => starPost(post.id, star)}>
             Star
           </button>
-          <button className="remove-btn" onClick={() => removePost(post.id)}>
+          <button className="remove-btn" onClick={() => removePost(post.id)}> 
+          {/* TODO enable remove btn based on user post owner. */}
             Remove
           </button>
         </div>

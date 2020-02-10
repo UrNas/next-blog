@@ -1,10 +1,11 @@
 import CurrentUser from "./currentuser";
 import SignOut from "./signout";
 import SignInAndSignUp from "./signandsignupform";
-import { useAuth } from "../hooks";
+import { useContext } from "react";
+import { UserContext } from "./providers/userprovider";
 
 const Authentication = () => {
-  const user = useAuth();
+  const user = useContext(UserContext)
   const currentUser = (
       <React.Fragment>
         <div className='main'>

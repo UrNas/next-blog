@@ -1,7 +1,8 @@
-import { useAuth } from "../hooks";
+import { useContext } from "react";
+import { UserContext } from "./providers/userprovider";
 
 const CurrentUser = () => {
-    const user = useAuth()
+    const user = useContext(UserContext)
     return (
         <React.Fragment>
             <div className='user-card'>
@@ -11,7 +12,7 @@ const CurrentUser = () => {
                 <div className='user-info'>
                     <h1 className='user-name'>{user ? user.displayName: ''}</h1>
                     <span className='email'> {user ? user.email: ''}</span>
-                    <span className='date'> {user ? user.metadata.creationTime: ''}</span>
+                    <span className='date'> {user ? user.createdAt.toString(): ''}</span>
                 </div>
             </div>
             <style jsx>
