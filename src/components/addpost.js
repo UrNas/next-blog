@@ -1,9 +1,9 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import { addPostBlog } from "../firestoreapi/functios";
-import { useAuth } from "../hooks";
+import {UserContext} from './providers/userprovider'
 
 const AddPost = () => {
-  const user = useAuth()
+  const user = useContext(UserContext)
   const refTitle = useRef();
   const refBodh = useRef();
   const handleCreatePost = e => {

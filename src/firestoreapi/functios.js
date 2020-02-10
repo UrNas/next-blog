@@ -62,10 +62,11 @@ const craeteUserProfile = async (user, rest) => {
     // return user document snapshot
     const userDoc = await refUser.get()
     if (!userDoc.exists) {
-        const {displayName, email, photoURL} = user;
+        const {uid, displayName, email, photoURL} = user;
         const createdAt = new Date()
         try {
             await refUser.set({
+                uid,
                 displayName,
                 email,
                 photoURL,
