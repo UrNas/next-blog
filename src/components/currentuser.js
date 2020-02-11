@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "./providers/userprovider";
+import { formatDate } from '../firestoreapi/functios'
 
 const CurrentUser = () => {
     const user = useContext(UserContext)
@@ -12,7 +13,7 @@ const CurrentUser = () => {
                 <div className='user-info'>
                     <h1 className='user-name'>{user ? user.displayName: ''}</h1>
                     <span className='email'> {user ? user.email: ''}</span>
-                    <span className='date'> {user ? user.createdAt.toString(): ''}</span>
+                    <span className='date'> {user ? formatDate(user.createdAt): ''}</span>
                 </div>
             </div>
             <style jsx>

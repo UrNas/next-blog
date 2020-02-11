@@ -1,6 +1,16 @@
 import firebase, {firestore} from '../config_firebase'
 import 'firebase/auth'
 
+// format date function
+const formatDate = (date) => {
+    const d = date.toDate()
+
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const year = d.getFullYear()
+    const month = d.getMonth()
+    const day = d.getDate()
+    return `${year}-${months[month]}-${day}`
+}
 // function return back all posts
 const getPosts = async () => {
     const posts = await (await firestore.collection('posts').get()).docs
@@ -93,5 +103,6 @@ export {
     signInWithEmailAndPassword,
     createNewUserWithEmailAndPass,
     signOutUser,
-    craeteUserProfile
+    craeteUserProfile,
+    formatDate
 }
