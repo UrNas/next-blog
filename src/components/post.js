@@ -1,8 +1,10 @@
 import { removePost, starPost } from "../firestoreapi/functios";
-
+import { UserContext } from "./providers/userprovider";
+import { useContext } from "react";
+import { belongsToCurrentUser } from "../firestoreapi/functios";
 const Post = ({ post }) => {
   const { title, content, user, star } = post.data();
-
+  const currentUser = useContext(UserContext);
   return (
     <React.Fragment>
       <div className="post">
@@ -18,10 +20,11 @@ const Post = ({ post }) => {
           <button className="star-btn" onClick={() => starPost(post.id, star)}>
             Star
           </button>
-          <button className="remove-btn" onClick={() => removePost(post.id)}> 
-          {/* TODO enable remove btn based on user post owner. */}
-            Remove
-          </button>
+          {belongsToCurrentUser(currentUser, user) && (
+            <button className="remove-btn" onClick={() => removePost(post.id)}>
+              Remove
+            </button>
+          )}
         </div>
       </div>
       <style jsx>

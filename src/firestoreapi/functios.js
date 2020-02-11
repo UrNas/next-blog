@@ -11,6 +11,14 @@ const formatDate = (date) => {
     const day = d.getDate()
     return `${year}-${months[month]}-${day}`
 }
+
+// function to handle delete function in post component 
+// show it if currentUser.uid === postAuth.uid otherwise hide delete button
+const belongsToCurrentUser = (currentUser, postAuth)=> {
+    if (!currentUser)return false
+    return currentUser.uid === postAuth.uid
+}
+
 // function return back all posts
 const getPosts = async () => {
     const posts = await (await firestore.collection('posts').get()).docs
@@ -104,5 +112,6 @@ export {
     createNewUserWithEmailAndPass,
     signOutUser,
     craeteUserProfile,
-    formatDate
+    formatDate,
+    belongsToCurrentUser
 }
