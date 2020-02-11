@@ -98,8 +98,9 @@ const craeteUserProfile = async (user, rest) => {
     return getUserProfile(user)
 }
 // function retrun back user
-const getUserProfile = async(user) => {
-    return (await firestore.collection('users').doc(`${user.uid}`).get()).data()
+const getUserProfile = async (user) => {
+    if (!user.uid)return null
+    return firestore.collection('users').doc(`${user.uid}`)
 }
 export {
     getPosts,

@@ -33,16 +33,24 @@ const useAuth = () => {
   const [user, setUser] = useState(null)
   useEffect(()=> {
     let isCurrent = true
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    let unsubUser
+    const unsubscribe = firebase.auth().onAuthStateChanged(authUser => {
       if (isCurrent) {
-          craeteUserProfile(user)
-          .then(u => setUser(u))
-          .catch(err => console.error("User Auth: ", err))
+        if (authUser){
+          craeteUserProfile(authUser)
+          .then(refUser => {
+            unsubUser = refUser.onSnapshot(userSanp => {
+              setUser({uid: userSanp.id, ...userSanp.data()})
+            })
+          })
+        }
+        setUser(null)
       }
     })
     return () => {
       unsubscribe()
       isCurrent = false
+      unsubUser()
     }
   }, [])
   return user
