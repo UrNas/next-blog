@@ -3,10 +3,6 @@ import UserDash from "../components/userprofile";
 
 
 const User = () => {
-  return (
-    <UserProvider>
-      <UserDash />
-    </UserProvider>
-  );
+  return <UserDash />
 };
 export default User;
