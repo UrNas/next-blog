@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { UserContext } from "./providers/userprovider";
 import { formatDate } from '../firestoreapi/functios'
 
+import Link from 'next/link'
+
 const CurrentUser = () => {
     const user = useContext(UserContext)
     return (
@@ -11,7 +13,11 @@ const CurrentUser = () => {
                     <img src={user ? user.photoURL: ''} />
                 </div>
                 <div className='user-info'>
-                    <h1 className='user-name'>{user ? user.displayName: ''}</h1>
+                    <h1 className='user-name'>{user ? <div>
+                        <Link href='/user'>
+                            <a>{user.displayName}</a>
+                        </Link>
+                    </div>: ''}</h1>
                     <span className='email'> {user ? user.email: ''}</span>
                     <span className='date'> {user ? formatDate(user.createdAt): ''}</span>
                 </div>
