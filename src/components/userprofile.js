@@ -1,18 +1,34 @@
 import { useRef, useContext } from "react";
-import {firestore} from '../config_firebase'
-import {UserContext} from '../components/providers/userprovider'
-import Authentication from '../components/authentication'
-import Link from 'next/link'
+import { firestore, storage } from "../config_firebase";
+import { UserContext } from "../components/providers/userprovider";
+import Authentication from "../components/authentication";
+import Link from "next/link";
 
 const UserDash = () => {
   const user = useContext(UserContext);
-  const refDisplayName = useRef();
+  const refDisplayName = useRef(null);
+  const refPhotoFile = useRef(null);
   const handleSumit = e => {
     e.preventDefault();
     console.log("click me");
-    console.log(user)
+    console.log(user);
     const displayName = refDisplayName.current.value;
-    firestore.doc(`users/${user.uid}`).update({ displayName });
+    const refUser = firestore.doc(`users/${user.uid}`);
+    if (displayName) {
+      refUser.update({ displayName });
+      refDisplayName.current.value = "";
+    }
+    if (refPhotoFile) {
+      const file = refPhotoFile.current.files[0];
+      console.log(file.name, file.size, file.type);
+      storage
+        .ref("user-profiles")
+        .child(`${user.uid}`)
+        .child(`${file.name}`)
+        .put(file)
+        .then(resp => resp.ref.getDownloadURL())
+        .then(photoURL => refUser.update({ photoURL }));
+    }
   };
   return (
     <div>
@@ -26,7 +42,11 @@ const UserDash = () => {
         <hr />
         <form onSubmit={handleSumit}>
           <input type="text" placeholder="display name" ref={refDisplayName} />
-          <input type="file" placeholder="user profile photo" />
+          <input
+            type="file"
+            placeholder="user profile photo"
+            ref={refPhotoFile}
+          />
           <input type="submit" value="update" />
         </form>
       </div>
