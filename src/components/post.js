@@ -31,6 +31,7 @@ const Post = ({ post }) => {
           >
             Star
           </button>
+          {/* TODO add comment icon and number of comments post has */}
           {belongsToCurrentUser(currentUser, user) && (
             <button className="remove-btn" onClick={() => removePost(post.id)}>
               Remove
