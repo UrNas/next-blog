@@ -2,6 +2,7 @@ import { useRef, useContext } from "react";
 import { UserContext } from "./providers/userprovider";
 import { addComment } from "../firestoreapi/functios";
 
+
 const Comments = ({ comment }) => {
   return (
     <React.Fragment>
@@ -45,12 +46,14 @@ const AddComment = ({ comments, post }) => {
   return (
     <React.Fragment>
       <div>
-        <div className="add-comment">
-          <form onSubmit={handleAddComment}>
-            <input type="text" placeholder="add Comment" ref={refComment} />
-            <input type="submit" value="add" />
-          </form>
-        </div>
+        {user ? (
+          <div className="add-comment">
+            <form onSubmit={handleAddComment}>
+              <input type="text" placeholder="add Comment" ref={refComment} />
+              <input type="submit" value="add" />
+            </form>
+          </div>
+        ): ''}
         <div>
           {comments.length > 0 ? (
             <div className="comments">
