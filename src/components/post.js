@@ -17,7 +17,11 @@ const Post = ({ post }) => {
             <span>Name: {user.displayName}</span>
             <span className="star-icn">⭐️ {star ? star : ""}</span>
           </div>
-          <button className="star-btn" onClick={() => starPost(post.id, star)}>
+          <button
+            style={{ visibility: currentUser ? "visible" : "hidden" }}
+            className="star-btn"
+            onClick={() => starPost(post.id, star)}
+          >
             Star
           </button>
           {belongsToCurrentUser(currentUser, user) && (
