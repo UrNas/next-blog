@@ -29,7 +29,10 @@ const getPosts = async () => {
 const addPostBlog = async (post) => {
     const refDoc = await firestore.collection('posts').add(post)
 }
-
+// addComment to add new comment
+const addComment = async (comment, postID) => {
+    await firestore.doc(`posts/${postID}`).collection('comments').add(comment)
+}
 // function to start post
 const updatePost = (id, starCount) => {
     firestore.collection('posts').doc(id).update({star: starCount})
@@ -101,6 +104,17 @@ const craeteUserProfile = async (user, rest) => {
 const getUserProfile = async(user) => {
     return firestore.collection('users').doc(`${user.uid}`)
 }
+
+// create function to return back post ref
+const getPostRef = (postID) => {
+    return firestore.doc(`posts/${postID}`)
+}
+// getRefComment return back comment ref
+const getCommentRef = (postID)=> {
+    const refPost = getPostRef(postID)
+    return refPost.collection('comments')
+}
+
 export {
     getPosts,
     addPostBlog,
@@ -113,5 +127,8 @@ export {
     signOutUser,
     craeteUserProfile,
     formatDate,
-    belongsToCurrentUser
+    belongsToCurrentUser,
+    getPostRef,
+    getCommentRef,
+    addComment
 }

@@ -2,6 +2,8 @@ import { removePost, starPost } from "../firestoreapi/functios";
 import { UserContext } from "./providers/userprovider";
 import { useContext } from "react";
 import { belongsToCurrentUser } from "../firestoreapi/functios";
+import Link from 'next/link'
+
 const Post = ({ post }) => {
   const { title, content, user, star } = post.data();
   const currentUser = useContext(UserContext);
@@ -9,7 +11,11 @@ const Post = ({ post }) => {
     <React.Fragment>
       <div className="post">
         <div className="post-content">
-          <h1>{title}</h1>
+          <Link href='/comments/[id]' as={`/comments/${post.id}`}>
+            <a>
+              {title}
+            </a>
+          </Link>
           <p>{content}</p>
         </div>
         <div className="bottom-bar">
