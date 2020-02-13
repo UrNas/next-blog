@@ -18,6 +18,7 @@ const Post = ({ post }) => {
             <span className="star-icn">⭐️ {star ? star : ""}</span>
           </div>
           <button
+            //todo instead of making star button invisble we should make a 'toast' to show that the user has to be logged in to use the button
             style={{ visibility: currentUser ? "visible" : "hidden" }}
             className="star-btn"
             onClick={() => starPost(post.id, star)}
