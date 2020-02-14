@@ -7,13 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next",
     "start": "next start",
-    "build": "next build"
+    "build": "next build",
+    "login": "firebase login",
+    "init": "firebase init"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "firebase": "^7.8.0",
+    "firebase-admin": "^8.9.2",
+    "firebase-tools": "^7.13.0",
     "next": "^9.2.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"

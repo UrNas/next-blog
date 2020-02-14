@@ -18,14 +18,16 @@ const UserDash = () => {
     }
     if (refPhotoFile) {
       const file = refPhotoFile.current.files[0];
-      storage
-        .ref("user-profiles")
-        .child(`${user.uid}`)
-        .child(`${file.name}`)
-        .put(file)
-        .then(resp => resp.ref.getDownloadURL())
-        .then(photoURL => refUser.update({ photoURL }));
-    }
+      if (file) {
+          storage
+            .ref("user-profiles")
+            .child(`${user.uid}`)
+            .child(`${file.name}`)
+            .put(file)
+            .then(resp => resp.ref.getDownloadURL())
+            .then(photoURL => refUser.update({ photoURL }));
+        }
+      }
   };
   return (
     <div>
@@ -37,9 +39,13 @@ const UserDash = () => {
           <input
             type="file"
             placeholder="user profile photo"
+            name='file'
+            id='file'
+            className='inputfile'
             ref={refPhotoFile}
           />
-          <input type="submit" value="update" />
+          <label htmlFor="file">📂 Choose a Photo...</label>
+          <button type="submit" >🙍🏽‍♂️ Update User Profile</button>
         </form>
       </div>
       <style jsx>
@@ -53,6 +59,48 @@ const UserDash = () => {
             font-size: 1.2em;
             margin: 10px auto;
           }
+          input[type=text] {
+            padding: 5px;
+          }
+          input[type=text]:focus {
+            outline: none;
+            border: 1px solid black
+          }
+          input[type=file] {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+          }
+          .inputfile + label {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: white;
+            background-color: black;
+            display: inline-block;
+        }
+        
+        .inputfile:focus + label,
+        .inputfile + label:hover {
+            background-color: #CE5D23;
+        }
+        label {
+          padding: 10px;
+        }
+        button {
+          display: block;
+          width: 100%;
+          margin: 15px auto;
+          font-size: 1.7em;
+          color: white;
+          background: black;
+          cursor: pointer;
+        }
+        button:focus {
+          outline: none;
+        }
         `}
       </style>
     </div>
