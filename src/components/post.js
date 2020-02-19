@@ -6,7 +6,7 @@ import { useGetPostAndComments } from "../hooks";
 import Link from "next/link";
 
 const Post = ({ post }) => {
-  const { title, content, user, star } = post.data();
+  const { title, content, user, star, commentCount } = post.data();
   const currentUser = useContext(UserContext);
   const [postt, comments] = useGetPostAndComments(post.id);
 
@@ -39,7 +39,7 @@ const Post = ({ post }) => {
           )}
           <div className="comments" onClick={() => {}}>
             <Link href="/comments/[id]" as={`/comments/${post.id}`}>
-              <span className="hand-icn">✍ {comments.length}</span>
+              <span className="hand-icn">✍ {commentCount ? commentCount: 0}</span>
             </Link>
           </div>
         </div>
