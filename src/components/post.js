@@ -2,19 +2,20 @@ import { removePost, starPost } from "../firestoreapi/functios";
 import { UserContext } from "./providers/userprovider";
 import { useContext } from "react";
 import { belongsToCurrentUser } from "../firestoreapi/functios";
-import Link from 'next/link'
+import { useGetPostAndComments } from "../hooks";
+import Link from "next/link";
 
 const Post = ({ post }) => {
   const { title, content, user, star } = post.data();
   const currentUser = useContext(UserContext);
+  const [postt, comments] = useGetPostAndComments(post.id);
+
   return (
     <React.Fragment>
       <div className="post">
         <div className="post-content">
-          <Link href='/comments/[id]' as={`/comments/${post.id}`}>
-            <a>
-              {title}
-            </a>
+          <Link href="/comments/[id]" as={`/comments/${post.id}`}>
+            <a>{title}</a>
           </Link>
           <p>{content}</p>
         </div>
@@ -31,12 +32,16 @@ const Post = ({ post }) => {
           >
             Star
           </button>
-          {/* TODO add comment icon and number of comments post has */}
           {belongsToCurrentUser(currentUser, user) && (
             <button className="remove-btn" onClick={() => removePost(post.id)}>
               Remove
             </button>
           )}
+          <div className="comments" onClick={() => {}}>
+            <Link href="/comments/[id]" as={`/comments/${post.id}`}>
+              <span className="hand-icn">✍ {comments.length}</span>
+            </Link>
+          </div>
         </div>
       </div>
       <style jsx>
@@ -51,6 +56,15 @@ const Post = ({ post }) => {
           }
           .user-info {
             float: left;
+          }
+          .comments {
+            float: left;
+            margin-left: 15px;
+          }
+          .comments:hover {
+            background-color: yellow;
+            border-radius: 6px;
+            cursor: pointer;
           }
           .star-icn {
             margin-left: 5px;
@@ -68,6 +82,9 @@ const Post = ({ post }) => {
           .star-btn {
             background: #829fd9;
             padding: 7px;
+          }
+          .hand-icn {
+            margin-left: 5px;
           }
         `}
       </style>

@@ -13,7 +13,7 @@ const Comment = () => {
       {post ? (
         <div>
           <Post post={post} />
-          <AddComment comments={comments} post={post}/>
+          <AddComment comments={comments} post={post} />
         </div>
       ) : (
         <Loading />
